@@ -7,7 +7,7 @@ const List = (props) => (
     There are {props.items.length} items.
     {props.items.map((item, index) => (
       <div key={index}>
-        <ListItem item={item} />
+        <ListItem item={item} displayItem={props.displayItem} />
       </div>
     ))}
   </div>

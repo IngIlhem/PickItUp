@@ -1,16 +1,12 @@
-import React from "react";
-import ListItem from "./ListItem.jsx";
+import React from 'react';
+import ItemDetails from './ItemDetails.jsx';
 
-const List = (props) => (
+const ListItem = (props) => (
   <div>
-    <h4> List Component </h4>
-    There are {props.items.length} items.
-    {props.items.map((item, index) => (
-      <div key={index}>
-        <ListItem item={item} />
-      </div>
-    ))}
+    <p>{props.item.category}</p>
+    <ItemDetails item={props.item} displayItem={props.displayItem}/>
+    <img src={props.item.urlImage}/>
   </div>
-);
+)
 
-export default List;
+export default ListItem;
