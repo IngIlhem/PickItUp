@@ -4,6 +4,8 @@ import $ from 'jquery'
 import List from './components/List.jsx'
 import ShowDetails from './components/ShowDetails.jsx'
 import CreateItem from './components/CreateItem.jsx'
+import Header from './components/Header.jsx'
+import { BrowserRouter } from 'react-router-dom'
 
 const App = () => {
   const [items, setItems] = useState([]);
@@ -49,6 +51,7 @@ const App = () => {
 
   return (
     <div>
+      <Header/>
       <h1>Item List</h1>
       <ShowDetails show={show} item={currentItem}/>
       <CreateItem addItem={addItem}/>
@@ -57,4 +60,6 @@ const App = () => {
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(<BrowserRouter>
+<React.StrictMode>
+   <App /> </React.StrictMode></BrowserRouter>, document.getElementById('app'))
