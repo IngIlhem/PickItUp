@@ -1,13 +1,14 @@
+import { ListItem } from "@mui/material";
 import React from "react";
-import ListItem from "./ListItem.jsx";
+import ItemDetails from "./ItemDetails.jsx";
 
-const List = (props) => (
+const List = ({items, displayItem, currentItem, show}) => (
   <div>
-    <h4> List Component </h4>
-    There are {props.items.length} items.
-    {props.items.map((item, index) => (
+    <h4>Available Items</h4>
+    There are {items.length} items.
+    {items.map((item, index) => (
       <div key={index}>
-        <ListItem item={item} displayItem={props.displayItem} />
+        <ItemDetails   item={item} displayItem={displayItem} currentItem={currentItem} show={show}/>
       </div>
     ))}
   </div>

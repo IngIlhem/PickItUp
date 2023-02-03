@@ -1,62 +1,68 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
+import axios from 'axios'
 import $ from 'jquery'
 import List from './components/List.jsx'
 import ShowDetails from './components/ShowDetails.jsx'
 import CreateItem from './components/CreateItem.jsx'
 import Header from './components/Header.jsx'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import ItemDetails from './components/ItemDetails.jsx'
+import Home from './components/Home.jsx'
+import About from './components/About.jsx'
 
 const App = () => {
   const [items, setItems] = useState([]);
   const [show, setShow] = useState(false);
-  const [currentItem, setCurrentItem] = useState({});
+  const [currentItem, setcurrentItem]= useState({});
+
+  const displayItem = (item)=>{
+    setcurrentItem(item);
+    setShow(true);
+
+  }
 
   useEffect(() => {
-    $.ajax({
-      url: '/api/items',
-      success: (data) => {
-        console.log(data)
-        setItems(data)
-      },
-      error: (err) => {
-        console.log('err', err)
-      },
+    axios
+    .get('/api/items')
+    .then(response => {
+      console.log(response);
+      setItems(response.data);
     })
+    .catch(err => {
+      console.log('error:', err);
+    });
   }, [])
 
   const addItem = (item) => {
     console.log(item);
-    $.ajax({
-      url: '/api/items',
-      success: (data) => {
-        console.log(data)
-       
-      },
-      error: (err) => {
-        console.log('err', err)
-      },
-    })
-    .then(data => {
+    axios
+    .post('/api/items', item)
+    .then(response => {
       // console.log(response)
       setItems([...items, data]);
     })
     .catch(err => console.log(err));
   };
 
-  const displayItem = (item)=>{
-    setCurrentItem(item);
-    setShow(true);
-  }
+  
 
   return (
-    <div>
-      <Header/>
-      <h1>Item List</h1>
-      <ShowDetails show={show} item={currentItem}/>
-      <CreateItem addItem={addItem}/>
-      <List items={items} displayItem={displayItem}/>
-    </div>
+
+      <React.Fragment>
+      <header>
+        <Header />
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} exact />
+          <Route path="/add" element={<CreateItem addItem={addItem}/>} exact />
+          <Route path="/items" element={<List items={items} displayItem={displayItem} currentItem={currentItem} show={show}/>} exact />
+          <Route path="/about" element={<About />} exact />
+        </Routes>
+      </main>
+    </React.Fragment>
+  
   )
 }
 
