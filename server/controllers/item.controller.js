@@ -1,5 +1,6 @@
 const Item = require('../database-mongo/Item.model.js');
 
+
 const selectAll = async function (req, res) {
    try {
      const items = await Item.find();
@@ -19,39 +20,27 @@ const selectAll = async function (req, res) {
  }
  const updateItem = async function (req, res){
   const id = req.params.id ;
-  let item;
+  const {category,    itemName,    urlImage,    description,    ownerName,    ownerTel,    ownerAdress,    state}=req.body;
   try {
-    const item = await Item.findByIdAndUpdate(id,{
-      category,
-      itemName,
-      urlImage,
-      description,
-      ownerName,
-      ownerTel,
-      ownerAdress,
-      state
-    });
-    item = await item.save()
+    let item = await Item.findByIdAndUpdate(id,{category,    itemName,    urlImage,    description,    ownerName,    ownerTel,    ownerAdress,    state});
+    item = await item.save();
+    //await Itemconst item = await Item.findById(id);
+    //const item = await Item.findOne({_id:ObjectId(id)});
+    //const item = await Item.findByIdAndUpdate(id,{category,    itemName,    urlImage,    description,    ownerName,    ownerTel,    ownerAdress,    state});
+    res.status(200).json(item);
   } catch (error) {
-    res.status(200).send(error);
+    res.send(error);
  }
  }
  const eraseItem = async function (req, res){
+  const id = req.params.id;
   try {
-    const item = await Item.findByIdAndRemove(req.body);
-   res.status(200).json(item);
+    const item = await Item.findByIdAndRemove(id);
+    res.status(200).json(item);
     } catch (error) {
-    res.status(200).send(error);
+    res.status(404).send(error);
  }
  }
- const getById = async function (req, res){
-  const id = req.params.id ;
-   let item;
-   try {
-    item = await Item.findById(id);
-   }  catch(err){
-    console.log(err)
-   }
- }
+ 
 
-module.exports = { selectAll, addItem, updateItem, eraseItem, getById };
+module.exports = { selectAll, addItem, updateItem, eraseItem};

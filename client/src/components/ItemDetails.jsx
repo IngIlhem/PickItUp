@@ -1,17 +1,17 @@
-import React,{useState} from 'react';
-import ShowDetails from './ShowDetails.jsx';
+import React from 'react';
+import ItemDetails from './ItemDetails.jsx';
 
-const ItemDetails = ({item, displayItem, currentItem, show}) => (
-
-    <div>
-    <p>{item.category}</p>
-    <div onClick={() => displayItem(item)}>
-                {item.itemName}
+const ItemDetails = (props) => {
+  
+  <div>
+    <p>{props.item.category}</p>
+    <div onClick={() => props.displayItem(props.item)}>
+                {props.item.itemName}
     </div>
-    <p>{item.description}</p>
-    <img src={item.urlImage} alt={item.itemName}/>
-    {show && item===currentItem && <ShowDetails item={item}/>}
+    <p>{props.item.description}</p>
+    <img src={props.item.urlImage}/>
+    
   </div>
-)
+}
 
 export default ItemDetails;

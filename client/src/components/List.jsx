@@ -1,17 +1,19 @@
 import { ListItem } from "@mui/material";
 import React from "react";
-import ItemDetails from "./ItemDetails.jsx";
+import ItemLst from "./ItemLst.jsx";
+
 
 const List = ({items, displayItem, currentItem, show}) => (
   <div>
-    <h4>Available Items</h4>
-    There are {items.length} items.
-    {items.map((item, index) => (
-      <div key={index}>
-        <ItemDetails   item={item} displayItem={displayItem} currentItem={currentItem} show={show}/>
-      </div>
-    ))}
+    <ul>
+      {items.map((item, index) => (
+        <li key={index}>
+          <ItemLst item={item} displayItem={displayItem} currentItem={currentItem} show={show} />
+        </li>
+      ))}
+    </ul>
   </div>
+  
 );
 
 export default List;

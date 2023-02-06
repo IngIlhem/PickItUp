@@ -9,7 +9,7 @@ mongoose
 .catch((err)=>{
   console.log(err);
 });
-
+mongoose.set('strictQuery', true);
 const db = mongoose.connection;
 
 module.exports = db

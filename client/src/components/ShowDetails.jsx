@@ -1,17 +1,16 @@
 import React from "react";
 
-const ShowDetails = ({item}) =>(
-    
+const ShowDetails = ({ item }) => (
+
         <div>
-    
-                <span>{item.ownerName}</span>
-                <span>{item.ownerTel}</span>
-                <span>{item.ownerAdress}</span>
-                <span>{item.state}</span>
-         
+           <div>Owner Name: </div>
+           <span>{item.ownerName}</span>
+           <div>Owner Tél: </div>
+           <span>{item.ownerTel}</span>
+           <div>Owner Adress: </div>
+           <span>{item.ownerAdress}</span>
         </div>
-        
-    
+
 );
 
- export default ShowDetails;
+export default ShowDetails;

@@ -7,11 +7,14 @@ import ShowDetails from './components/ShowDetails.jsx'
 import CreateItem from './components/CreateItem.jsx'
 import Header from './components/Header.jsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import ItemDetails from './components/ItemDetails.jsx'
+import ItemDetails from './components/ItemLst.jsx'
 import Home from './components/Home.jsx'
 import About from './components/About.jsx'
+//import { useNavigate } from "react-router-dom";
+
 
 const App = () => {
+  //const history = useNavigate();
   const [items, setItems] = useState([]);
   const [show, setShow] = useState(false);
   const [currentItem, setcurrentItem]= useState({});
@@ -39,13 +42,12 @@ const App = () => {
     axios
     .post('/api/items', item)
     .then(response => {
-      // console.log(response)
+      //console.log(response)
       setItems([...items, data]);
+      //history('/');
     })
     .catch(err => console.log(err));
   };
-
-  
 
   return (
 
@@ -55,7 +57,7 @@ const App = () => {
       </header>
       <main>
         <Routes>
-          <Route path="/" element={<Home />} exact />
+          
           <Route path="/add" element={<CreateItem addItem={addItem}/>} exact />
           <Route path="/items" element={<List items={items} displayItem={displayItem} currentItem={currentItem} show={show}/>} exact />
           <Route path="/about" element={<About />} exact />
@@ -67,5 +69,7 @@ const App = () => {
 }
 
 ReactDOM.render(<BrowserRouter>
-<React.StrictMode>
-   <App /> </React.StrictMode></BrowserRouter>, document.getElementById('app'))
+  <React.StrictMode>
+    <App />
+     </React.StrictMode>
+     </BrowserRouter>, document.getElementById('app'))
